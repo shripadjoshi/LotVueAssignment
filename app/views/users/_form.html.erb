@@ -36,6 +36,18 @@
     <%= form.file_field :avatar %>
   </div>
 
+  <div class="field">
+    <%= form.label :user_details %>
+    <%= form.nested_fields_for :user_details do |f|%>
+      <%= f.remove_nested_fields_link %>
+      <%= f.label :meta_key %>
+      <%= f.text_field :meta_key %>
+      <%= f.label :meta_value %>
+      <%= f.text_field :meta_value %>
+    <% end %>
+    <%= form.add_nested_fields_link :user_details %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
