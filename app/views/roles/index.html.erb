@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<div align="left">
+  <%= link_to('Add New Role', new_role_path) %>
+</div>
+<div align="right">
+  <%= link_to "Hide", roles_hidden_path, class: 'btn btn-min btn-success' %>
+</div>
+<fieldset>
+  <legend> Roles </legend>
+  <table class="table table-condensed" id='roles'>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Is active</th>
+        <th data-sorter="false">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @roles.each do |role| %>
+        <tr>    
+          <td><%= role.name %></td>
+          <td><%= role.description %></td>
+          <td><%= role.is_active ? 'Yes' : 'No' %></td>
+          <td>
+            <%= link_to "Edit", edit_role_path(role), class: 'btn btn-min btn-success' %>
+            <%= link_to "Delete", role_path(role), method: "DELETE", data: {confirm: 'Are you sure?'}, class: 'btn btn-min btn-danger' %>
+          </td>
+        </tr>
+      <%end%>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4"><%= pluralize(@roles.size, 'role') %></td>
+      </tr>
+    </tfoot>
+  </table>
+  <%= will_paginate @roles %>
+</fieldset>
