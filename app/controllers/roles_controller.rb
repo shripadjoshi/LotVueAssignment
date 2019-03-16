@@ -4,13 +4,13 @@ class RolesController < ApplicationController
   # GET /hidden
   # GET /roles.json
   def hidden_roles
-    @roles = Role.paginate(:page => params[:page], :per_page => 10)
+    get_roles
   end
 
   # GET /roles
   # GET /roles.json
   def index
-    @roles = Role.paginate(:page => params[:page], :per_page => 10)
+    get_roles
   end
 
   # GET /roles/new
@@ -67,6 +67,11 @@ class RolesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_role
       @role = Role.find(params[:id])
+    end
+
+    #get roles 
+    def get_roles
+      @roles = Role.paginate(:page => params[:page], :per_page => 10)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
