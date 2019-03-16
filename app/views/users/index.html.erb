@@ -8,18 +8,20 @@
   <table class="table table-condensed" id='users'>
     <thead>
       <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Email</th>
+        <th>Avatar</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Roles</th>
         <th data-sorter="false">Actions</th>
       </tr>
     </thead>
     <tbody>
       <% @users.each do |user| %>
-        <tr>    
+        <tr>
+          <td><%= image_tag user.avatar, size: "60x60" %></td>
           <td><%= user.first_name %></td>
           <td><%= user.last_name %></td>
-          <td><%= user.email %></td>
+          <td><%= user.roles.collect(&:name).join(", ") %></td>
           <td>
             <%= link_to "Edit", edit_user_path(user), class: 'btn btn-min btn-success' %>
             <%= link_to "Delete", user_path(user), method: "DELETE", data: {confirm: 'Are you sure?'}, class: 'btn btn-min btn-danger' %>
@@ -29,7 +31,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="4"><%= pluralize(@users.size, 'user') %></td>
+        <td colspan="5"><%= pluralize(@users.size, 'user') %></td>
       </tr>
     </tfoot>
   </table>
