@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<div align="left">
+<%= link_to 'New User', new_user_path %>
+</div>
+<fieldset>
+  <legend> Users </legend>
+  <table class="table table-condensed" id='users'>
+    <thead>
+      <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Email</th>
+        <th data-sorter="false">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>    
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <%= link_to "Edit", edit_user_path(user), class: 'btn btn-min btn-success' %>
+            <%= link_to "Delete", user_path(user), method: "DELETE", data: {confirm: 'Are you sure?'}, class: 'btn btn-min btn-danger' %>
+          </td>
+        </tr>
+      <%end%>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4"><%= pluralize(@users.size, 'user') %></td>
+      </tr>
+    </tfoot>
+  </table>
+  <%= will_paginate @users %>
+</fieldset>
