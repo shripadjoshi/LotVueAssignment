@@ -10,11 +10,12 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-    @roles = Role.where({is_active: false})
+    get_roles
   end
 
   # GET /users/1/edit
   def edit
+    get_roles
   end
 
   # POST /users
@@ -24,10 +25,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        
+
         format.html { redirect_to users_path, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
+        get_roles
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -42,6 +44,7 @@ class UsersController < ApplicationController
         format.html { redirect_to users_path, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
+        get_roles
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -67,5 +70,10 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, role_ids: [])
+    end
+
+    #get all the roles
+    def get_roles
+      @roles = Role.where({is_active: false})
     end
 end
