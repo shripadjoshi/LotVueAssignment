@@ -3,9 +3,6 @@
 <div align="left">
   <%= link_to('Add New Role', new_role_path) %>
 </div>
-<div align="right">
-  <%= link_to "Hide", roles_hidden_path, class: 'btn btn-min btn-success' %>
-</div>
 <fieldset>
   <legend> Roles </legend>
   <table class="table table-condensed" id='roles'>
@@ -14,6 +11,7 @@
         <th>Name</th>
         <th>Description</th>
         <th>Is Hidden</th>
+        <th>Toggle Hide</th>
         <th data-sorter="false">Actions</th>
       </tr>
     </thead>
@@ -23,6 +21,7 @@
           <td><%= role.name %></td>
           <td><%= role.description %></td>
           <td><%= role.is_active ? 'Yes' : 'No' %></td>
+          <td><%= check_box_tag 'role', role.is_active, role.is_active, class: 'hide_role', data: {id: role.id} %></td>
           <td>
             <%= link_to "Edit", edit_role_path(role), class: 'btn btn-min btn-success' %>
             <%= link_to "Delete", role_path(role), method: "DELETE", data: {confirm: 'Are you sure?'}, class: 'btn btn-min btn-danger' %>
@@ -32,7 +31,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="4"><%= pluralize(@roles.size, 'role') %></td>
+        <td colspan="5"><%= pluralize(@roles.size, 'role') %></td>
       </tr>
     </tfoot>
   </table>
